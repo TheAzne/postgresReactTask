@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import TaskDelete from "./TaskDelete";
+import {Button, Form, Table} from "react-bootstrap";
 
 function TaskId() {
   const [task, setTask] = useState(null);
@@ -58,7 +59,7 @@ function TaskId() {
   };
 
   const handleTaskDeleted = () => {
-    navigate('/tasks');
+    navigate("/tasks");
   };
 
   return (
@@ -67,44 +68,53 @@ function TaskId() {
       {task ? (
         editing ? (
           <div>
-            <form>
-              <label htmlFor="name">Name:</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                value={editedTask.name}
-                onChange={handleChange}
-              />
-              <label htmlFor="description">Description:</label>
-              <input
-                type="text"
-                name="description"
-                id="description"
-                value={editedTask.description}
-                onChange={handleChange}
-              />
-              <label htmlFor="taskTime">Task Time:</label>
-              <input
-                type="number"
-                name="taskTime"
-                id="taskTime"
-                value={editedTask.taskTime}
-                onChange={handleChange}
-              />
-
-              <label htmlFor="status">Status:</label>
-              <select name="status" value={task.status} onChange={handleChange}>
-                <option value={true}>Completed</option>
-                <option value={false}>Incomplete</option>
-              </select>
-            </form>
-            <button onClick={handleSaveClick}>Save</button>
-            <button onClick={handleCancelClick}>Cancel</button>
+            <Form>
+              <Form.Group controlId="name" className="mb-3">
+                <Form.Label>Name:</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="name"
+                  value={editedTask.name}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="description" className="mb-3">
+                <Form.Label>Description:</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="description"
+                  value={editedTask.description}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="taskTime" className="mb-3">
+                <Form.Label>Task Time:</Form.Label>
+                <Form.Control
+                  type="number"
+                  name="taskTime"
+                  value={editedTask.taskTime}
+                  onChange={handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="status" className="mb-3">
+                <Form.Label>Status:</Form.Label>
+                <Form.Control
+                  as="select"
+                  name="status"
+                  value={editedTask.status}
+                  onChange={handleChange}
+                >
+                  <option value={true}>Completed</option>
+                  <option value={false}>Incomplete</option>
+                </Form.Control>
+              </Form.Group>
+            </Form>
+            <Button variant="success"  style={{ marginRight: "8px" }} onClick={handleSaveClick}>Save</Button>
+            <Button variant="secondary"  onClick={handleCancelClick}>Cancel</Button>
           </div>
         ) : (
           <div>
-            <table>
+            <Table striped bordered hover>
               <thead>
                 <tr>
                   <th>Name</th>
@@ -125,8 +135,14 @@ function TaskId() {
                   <td>{new Date(task.updatedAt).toLocaleString()}</td>
                 </tr>
               </tbody>
-            </table>
-            <button onClick={handleEditClick}>Edit</button>
+            </Table>
+            <Button
+              style={{ marginRight: "8px" }}
+              variant="primary"
+              onClick={handleEditClick}
+            >
+              Edit
+            </Button>
             <TaskDelete taskId={task.id} onTaskDeleted={handleTaskDeleted} />
           </div>
         )

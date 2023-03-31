@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Form, Button } from "react-bootstrap";
 
 function TaskCreate() {
   const [task, setTask] = useState({
@@ -47,48 +48,51 @@ function TaskCreate() {
   return (
     <div>
       <h2>Create Task</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="name" className="mb-3">
+          <Form.Label>Name:</Form.Label>
+          <Form.Control
             type="text"
             name="name"
             value={task.name}
             onChange={handleChange}
           />
-        </label>
-        <br />
-        <label>
-          Description:
-          <input
+        </Form.Group>
+        <Form.Group controlId="description" className="mb-3">
+          <Form.Label>Description:</Form.Label>
+          <Form.Control
             type="text"
             name="description"
             value={task.description}
             onChange={handleChange}
           />
-        </label>
-        <br />
-        <label>
-          Task Time:
-          <input
+        </Form.Group>
+        <Form.Group controlId="taskTime" className="mb-3">
+          <Form.Label>Task Time:</Form.Label>
+          <Form.Control
             type="number"
             name="taskTime"
             value={task.taskTime}
             onChange={handleChange}
           />
-        </label>
-        <br />
-        <label>
-          Status:
-          <select name="status" value={task.status} onChange={handleChange}>
+        </Form.Group>
+        <Form.Group controlId="status" className="mb-3">
+          <Form.Label>Status:</Form.Label>
+          <Form.Control
+            as="select"
+            name="status"
+            value={task.status}
+            onChange={handleChange}
+          >
             <option value={true}>Completed</option>
             <option value={false}>Incomplete</option>
-          </select>
-        </label>
-        <br />
-        <button type="submit">Create Task</button>
-        <Link to="/api/tasks">Cancel</Link>
-      </form>
+          </Form.Control>
+        </Form.Group>
+        <Button type="submit" style={{ marginRight: "8px" }}>Create Task</Button>
+        <Link to="/api/tasks">
+          <Button className="ml-2" variant="secondary">Cancel</Button>
+        </Link>
+      </Form>
     </div>
   );
 }

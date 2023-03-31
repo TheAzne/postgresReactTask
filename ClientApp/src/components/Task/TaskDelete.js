@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from "react-bootstrap/Button";
 
 const TaskDelete = ({ taskId, onTaskDeleted }) => {
   const taskDelete = async () => {
@@ -18,9 +19,10 @@ const TaskDelete = ({ taskId, onTaskDeleted }) => {
   };
 
   return (
-    <button onClick={taskDelete} className="delete-task-button">
+    <Button variant="danger" onClick={taskDelete} className="delete-task-button">
       Delete Task
-    </button>
+    </Button>
+
   );
 };
 
