@@ -34,8 +34,8 @@ function TaskIndex() {
             <th>Beskrivning</th>
             <th>Uppgiftstid </th>
             <th>Status</th>
-            <th>Uppdaterad</th>
-            <th>Skapad</th>
+            <th>Projektstart</th>
+            <th>Projektslut</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -46,8 +46,20 @@ function TaskIndex() {
               <td>{task.description}</td>
               <td>{task.taskTime}</td>
               <td>{task.status ? "Klar" : "Ej klar"}</td>
-              <td>{new Date(task.updatedAt).toLocaleString()}</td>
-              <td>{new Date(task.createdAt).toLocaleString()}</td>
+              <td>
+                      {new Intl.DateTimeFormat("sv-SE", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }).format(new Date(task.taskStart))}
+                    </td>
+                    <td>
+                      {new Intl.DateTimeFormat("sv-SE", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }).format(new Date(task.taskEnd))}
+                    </td>
               <td>
                 <Button
                   variant="primary"
@@ -60,7 +72,7 @@ function TaskIndex() {
           ))}
         </tbody>
       </Table>
-      <Button variant="info" onClick={() => handleCreateButtonClick()}>
+      <Button variant="dark" onClick={() => handleCreateButtonClick()}>
         Skapa en uppgift
       </Button>
     </div>

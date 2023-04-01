@@ -67,11 +67,17 @@ function TaskId() {
     const isCompleted = eventKey === "true";
     setEditedTask((prevTask) => ({ ...prevTask, status: isCompleted }));
   };
-  
 
   return (
     <div>
-      <h2>Projekt detaljer</h2>
+      <div className="mb-3">
+        <Link to="/tasks">
+          <i className="bi bi-arrow-left"></i>
+          Tillbaka
+        </Link>
+      </div>
+
+      <h2 className="mb-3">Projekt detaljer</h2>
       {task ? (
         editing ? (
           <div>
@@ -118,12 +124,8 @@ function TaskId() {
                     )}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                    <Dropdown.Item eventKey="true">
-                      Klar
-                    </Dropdown.Item>
-                    <Dropdown.Item eventKey="false">
-                     Ej klar
-                    </Dropdown.Item>
+                    <Dropdown.Item eventKey="true">Klar</Dropdown.Item>
+                    <Dropdown.Item eventKey="false">Ej klar</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </Form.Group>
@@ -147,6 +149,8 @@ function TaskId() {
                   <th>Namn</th>
                   <th>Beskrivning</th>
                   <th>Projekt tid (timmar)</th>
+                  <th>Projektstart </th>
+                  <th>Projektslut</th>
                   <th>Status</th>
                   <th>Uppdaterad</th>
                   <th>Skapad</th>
@@ -156,10 +160,40 @@ function TaskId() {
                 <tr>
                   <td>{task.name}</td>
                   <td>{task.description}</td>
-                  <td>{task.taskTime}</td>
-                  <td>{task.status ? "Completed" : "Incomplete"}</td>
-                  <td>{new Date(task.updatedAt).toLocaleString()}</td>
-                  <td>{new Date(task.createdAt).toLocaleString()}</td>
+                  <td>{task.taskTime} h</td>
+                  <td>
+                    {new Intl.DateTimeFormat("sv-SE", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    }).format(new Date(task.taskStart))}
+                  </td>
+                  <td>
+                    {new Intl.DateTimeFormat("sv-SE", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                    }).format(new Date(task.taskEnd))}
+                  </td>
+                  <td>{task.status ? "Klar" : "Ej klar"}</td>
+                  <td>
+                    {new Intl.DateTimeFormat("sv-SE", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    }).format(new Date(task.updatedAt))}
+                  </td>
+                  <td>
+                    {new Intl.DateTimeFormat("sv-SE", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    }).format(new Date(task.createdAt))}
+                  </td>
                 </tr>
               </tbody>
             </Table>

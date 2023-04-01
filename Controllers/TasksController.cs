@@ -70,6 +70,8 @@ namespace postgresReactTask.Controllers
             task.TaskTime = updateTask.TaskTime;
             task.Status = updateTask.Status;
             task.UpdatedAt = DateTime.UtcNow;
+            task.TaskStart = updateTask.TaskStart;
+            task.TaskEnd = updateTask.TaskEnd;
             try
             {
                 await _apiDbContext.SaveChangesAsync();

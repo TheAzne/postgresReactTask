@@ -4,10 +4,14 @@ import { Form, Button } from "react-bootstrap";
 import { Dropdown } from "react-bootstrap";
 
 function TaskCreate() {
+  const today = new Date().toISOString().slice(0, 10);
+
   const [task, setTask] = useState({
     name: "",
     description: "",
     taskTime: 0,
+    taskStart: today,
+    taskEnd:today,
     status: false,
   });
   const navigate = useNavigate();
@@ -19,12 +23,13 @@ function TaskCreate() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const isCompleted = event.target.status.value === "true";
     const newTask = {
       name: event.target.name.value,
       description: event.target.description.value,
       taskTime: event.target.taskTime.value,
-      status: isCompleted,
+      taskStart: new Date(event.target.taskStart.value).toISOString(),
+      taskEnd: new Date(event.target.taskEnd.value).toISOString(),
+      status: task.status,
     };
     fetch("/api/tasks/create", {
       method: "POST",
@@ -36,8 +41,12 @@ function TaskCreate() {
       .then((response) => {
         if (response.ok) {
           return response.json();
+        } else {
+          console.error(`Error: ${response.status} - ${response.statusText}`);
+          return response.text().then((text) => {
+            throw new Error(text);
+          });
         }
-        throw new Error("Network response was not ok.");
       })
       .then((data) => {
         console.log(data);
@@ -45,6 +54,8 @@ function TaskCreate() {
       })
       .catch((error) => console.error(error));
   };
+  
+  
 
   const handleStatusChange = (eventKey) => {
     const isCompleted = eventKey === "true";
@@ -80,6 +91,24 @@ function TaskCreate() {
             type="number"
             name="taskTime"
             value={task.taskTime}
+            onChange={handleChange}
+          />
+          </Form.Group>
+          <Form.Group controlId="taskStart" className="mb-3">
+          <Form.Label>Projektstart:</Form.Label>
+          <Form.Control
+            type="date"
+            name="taskStart"
+            value={task.taskStart}
+            onChange={handleChange}
+          />
+          </Form.Group>
+          <Form.Group controlId="taskEnd" className="mb-3">
+          <Form.Label>Projektslut:</Form.Label>
+          <Form.Control
+            type="date"
+            name="taskEnd"
+            value={task.taskEnd}
             onChange={handleChange}
           />
         </Form.Group>

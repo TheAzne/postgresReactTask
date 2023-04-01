@@ -21,6 +21,10 @@ namespace postgresReactTask.Model
         public DateTime UpdatedAt { get; set; }
         
         public int TaskTime { get; set; }
+
+        public DateTime TaskStart { get; set; }
+        
+        public DateTime TaskEnd { get; set; }
         
         public bool Status { get; set; }
         
