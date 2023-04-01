@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import {Button, Form, Table} from "react-bootstrap";
+import { Button, Form, Table } from "react-bootstrap";
+import TaskCreate from "./TaskCreate";
 
 function TaskIndex() {
   const [tasks, setTasks] = useState([]);
@@ -19,6 +20,7 @@ function TaskIndex() {
   const handleButtonClick = (taskId) => {
     navigate(`/tasks/${taskId}`);
   };
+
 
   return (
     <div>
@@ -45,7 +47,12 @@ function TaskIndex() {
               <td>{new Date(task.createdAt).toLocaleString()}</td>
               <td>{new Date(task.updatedAt).toLocaleString()}</td>
               <td>
-                <Button variant="primary" onClick={() => handleButtonClick(task.id)}>View Details</Button>
+                <Button
+                  variant="primary"
+                  onClick={() => handleButtonClick(task.id)}
+                >
+                  View Details
+                </Button>
               </td>
             </tr>
           ))}
