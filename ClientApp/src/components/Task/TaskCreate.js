@@ -47,10 +47,10 @@ function TaskCreate() {
 
   return (
     <div>
-      <h2>Create Task</h2>
+      <h2>Skapa projekt</h2>
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="name" className="mb-3">
-          <Form.Label>Name:</Form.Label>
+          <Form.Label>Namn:</Form.Label>
           <Form.Control
             type="text"
             name="name"
@@ -59,7 +59,7 @@ function TaskCreate() {
           />
         </Form.Group>
         <Form.Group controlId="description" className="mb-3">
-          <Form.Label>Description:</Form.Label>
+          <Form.Label>Beskrivning:</Form.Label>
           <Form.Control
             type="text"
             name="description"
@@ -68,7 +68,7 @@ function TaskCreate() {
           />
         </Form.Group>
         <Form.Group controlId="taskTime" className="mb-3">
-          <Form.Label>Task Time:</Form.Label>
+          <Form.Label>Projekt tid:</Form.Label>
           <Form.Control
             type="number"
             name="taskTime"
@@ -84,13 +84,13 @@ function TaskCreate() {
             value={task.status}
             onChange={handleChange}
           >
-            <option value={true}>Completed</option>
-            <option value={false}>Incomplete</option>
+            <option value={true}>Klar</option>
+            <option value={false}>Ej klar</option>
           </Form.Control>
         </Form.Group>
-        <Button type="submit" style={{ marginRight: "8px" }}>Create Task</Button>
-        <Link to="/api/tasks">
-          <Button className="ml-2" variant="secondary">Cancel</Button>
+        <Button type="submit" style={{ marginRight: "8px" }}>Skapa</Button>
+        <Link to="/tasks">
+          <Button className="ml-2" variant="secondary">Avbryt</Button>
         </Link>
       </Form>
     </div>

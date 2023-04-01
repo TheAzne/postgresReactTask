@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import TaskDelete from "./TaskDelete";
 import {Button, Form, Table} from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 
 function TaskId() {
   const [task, setTask] = useState(null);
@@ -64,13 +65,13 @@ function TaskId() {
 
   return (
     <div>
-      <h2>Task Details</h2>
+      <h2>Projekt detaljer</h2>
       {task ? (
         editing ? (
           <div>
             <Form>
               <Form.Group controlId="name" className="mb-3">
-                <Form.Label>Name:</Form.Label>
+                <Form.Label>Namn:</Form.Label>
                 <Form.Control
                   type="text"
                   name="name"
@@ -79,7 +80,7 @@ function TaskId() {
                 />
               </Form.Group>
               <Form.Group controlId="description" className="mb-3">
-                <Form.Label>Description:</Form.Label>
+                <Form.Label>Beskrivning:</Form.Label>
                 <Form.Control
                   type="text"
                   name="description"
@@ -88,7 +89,7 @@ function TaskId() {
                 />
               </Form.Group>
               <Form.Group controlId="taskTime" className="mb-3">
-                <Form.Label>Task Time:</Form.Label>
+                <Form.Label>Projekt tid (timmar):</Form.Label>
                 <Form.Control
                   type="number"
                   name="taskTime"
@@ -104,25 +105,25 @@ function TaskId() {
                   value={editedTask.status}
                   onChange={handleChange}
                 >
-                  <option value={true}>Completed</option>
-                  <option value={false}>Incomplete</option>
+                  <option value={true}>Klar</option>
+                  <option value={false}>Ej klar</option>
                 </Form.Control>
               </Form.Group>
             </Form>
-            <Button variant="success"  style={{ marginRight: "8px" }} onClick={handleSaveClick}>Save</Button>
-            <Button variant="secondary"  onClick={handleCancelClick}>Cancel</Button>
+            <Button variant="success"  style={{ marginRight: "8px" }} onClick={handleSaveClick}>Spara</Button>
+            <Button variant="secondary"  onClick={handleCancelClick}>Avbryt</Button>
           </div>
         ) : (
           <div>
             <Table striped bordered hover>
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Description</th>
-                  <th>Task Time</th>
+                  <th>Namn</th>
+                  <th>Beskrivning</th>
+                  <th>Projekt tid (timmar)</th>
                   <th>Status</th>
-                  <th>Created At</th>
-                  <th>Updated At</th>
+                  <th>Uppdaterad</th>
+                  <th>Skapad</th>
                 </tr>
               </thead>
               <tbody>
@@ -131,8 +132,8 @@ function TaskId() {
                   <td>{task.description}</td>
                   <td>{task.taskTime}</td>
                   <td>{task.status ? "Completed" : "Incomplete"}</td>
-                  <td>{new Date(task.createdAt).toLocaleString()}</td>
                   <td>{new Date(task.updatedAt).toLocaleString()}</td>
+                  <td>{new Date(task.createdAt).toLocaleString()}</td>
                 </tr>
               </tbody>
             </Table>
@@ -141,7 +142,7 @@ function TaskId() {
               variant="primary"
               onClick={handleEditClick}
             >
-              Edit
+              Ändra
             </Button>
             <TaskDelete taskId={task.id} onTaskDeleted={handleTaskDeleted} />
           </div>

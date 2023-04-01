@@ -20,7 +20,7 @@ const TaskDelete = ({ taskId, onTaskDeleted }) => {
 
   return (
     <Button variant="danger" onClick={taskDelete} className="delete-task-button">
-      Delete Task
+      Radera projekt
     </Button>
 
   );

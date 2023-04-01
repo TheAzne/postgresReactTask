@@ -20,20 +20,22 @@ function TaskIndex() {
   const handleButtonClick = (taskId) => {
     navigate(`/tasks/${taskId}`);
   };
-
+  const handleCreateButtonClick = () => {
+    navigate("/tasks/create");
+  };
 
   return (
     <div>
-      <h2>Task List</h2>
+      <h2 className="mb-5">Projekt lista</h2>
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Task Time</th>
+            <th>Namn</th>
+            <th>Beskrivning</th>
+            <th>Uppgiftstid </th>
             <th>Status</th>
-            <th>Created At</th>
-            <th>Updated At</th>
+            <th>Uppdaterad</th>
+            <th>Skapad</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -44,20 +46,23 @@ function TaskIndex() {
               <td>{task.description}</td>
               <td>{task.taskTime}</td>
               <td>{task.status ? "Completed" : "Incomplete"}</td>
-              <td>{new Date(task.createdAt).toLocaleString()}</td>
               <td>{new Date(task.updatedAt).toLocaleString()}</td>
+              <td>{new Date(task.createdAt).toLocaleString()}</td>
               <td>
                 <Button
                   variant="primary"
                   onClick={() => handleButtonClick(task.id)}
                 >
-                  View Details
+                  Visa detalj
                 </Button>
               </td>
             </tr>
           ))}
         </tbody>
       </Table>
+      <Button variant="info" onClick={() => handleCreateButtonClick()}>
+        Skapa en uppgift
+      </Button>
     </div>
   );
 }
