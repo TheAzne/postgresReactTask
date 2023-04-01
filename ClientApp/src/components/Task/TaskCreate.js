@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Button } from "react-bootstrap";
+import { Dropdown } from "react-bootstrap";
 
 function TaskCreate() {
   const [task, setTask] = useState({
@@ -45,6 +46,12 @@ function TaskCreate() {
       .catch((error) => console.error(error));
   };
 
+  const handleStatusChange = (eventKey) => {
+    const isCompleted = eventKey === "true";
+    setTask((prevTask) => ({ ...prevTask, status: isCompleted }));
+  };
+  
+
   return (
     <div>
       <h2>Skapa projekt</h2>
@@ -76,21 +83,34 @@ function TaskCreate() {
             onChange={handleChange}
           />
         </Form.Group>
-        <Form.Group controlId="status" className="mb-3">
+        <Form.Group controlId="status" className="mb-4">
           <Form.Label>Status:</Form.Label>
-          <Form.Control
-            as="select"
-            name="status"
-            value={task.status}
-            onChange={handleChange}
-          >
-            <option value={true}>Klar</option>
-            <option value={false}>Ej klar</option>
-          </Form.Control>
+          <Dropdown onSelect={handleStatusChange}>
+            <Dropdown.Toggle variant="primary">
+              {task.status ? (
+                <>
+                  <i className="bi bi-check"></i> Klar
+                </>
+              ) : (
+                <>
+                  <i className="bi bi-slash-circle"></i> Ej klar
+                </>
+              )}
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item eventKey="true"> Klar</Dropdown.Item>
+              <Dropdown.Item eventKey="false"> Ej klar</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
         </Form.Group>
-        <Button type="submit" style={{ marginRight: "8px" }}>Skapa</Button>
+
+        <Button variant="success" type="submit" style={{ marginRight: "8px" }}>
+          Skapa
+        </Button>
         <Link to="/tasks">
-          <Button className="ml-2" variant="secondary">Avbryt</Button>
+          <Button className="ml-2" variant="secondary">
+            Avbryt
+          </Button>
         </Link>
       </Form>
     </div>

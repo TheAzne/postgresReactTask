@@ -45,7 +45,7 @@ function TaskIndex() {
               <td>{task.name}</td>
               <td>{task.description}</td>
               <td>{task.taskTime}</td>
-              <td>{task.status ? "Completed" : "Incomplete"}</td>
+              <td>{task.status ? "Klar" : "Ej klar"}</td>
               <td>{new Date(task.updatedAt).toLocaleString()}</td>
               <td>{new Date(task.createdAt).toLocaleString()}</td>
               <td>

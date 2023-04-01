@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import TaskDelete from "./TaskDelete";
-import {Button, Form, Table} from "react-bootstrap";
+import { Button, Form, Table } from "react-bootstrap";
 import { Dropdown } from "react-bootstrap";
 
 function TaskId() {
@@ -63,6 +63,12 @@ function TaskId() {
     navigate("/tasks");
   };
 
+  const handleStatusChange = (eventKey) => {
+    const isCompleted = eventKey === "true";
+    setEditedTask((prevTask) => ({ ...prevTask, status: isCompleted }));
+  };
+  
+
   return (
     <div>
       <h2>Projekt detaljer</h2>
@@ -99,19 +105,39 @@ function TaskId() {
               </Form.Group>
               <Form.Group controlId="status" className="mb-3">
                 <Form.Label>Status:</Form.Label>
-                <Form.Control
-                  as="select"
-                  name="status"
-                  value={editedTask.status}
-                  onChange={handleChange}
-                >
-                  <option value={true}>Klar</option>
-                  <option value={false}>Ej klar</option>
-                </Form.Control>
+                <Dropdown onSelect={handleStatusChange}>
+                  <Dropdown.Toggle variant="primary">
+                    {editedTask.status ? (
+                      <>
+                        <i className="bi bi-check"></i> Klar
+                      </>
+                    ) : (
+                      <>
+                        <i className="bi bi-slash-circle"></i> Ej klar
+                      </>
+                    )}
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item eventKey="true">
+                      Klar
+                    </Dropdown.Item>
+                    <Dropdown.Item eventKey="false">
+                     Ej klar
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
               </Form.Group>
             </Form>
-            <Button variant="success"  style={{ marginRight: "8px" }} onClick={handleSaveClick}>Spara</Button>
-            <Button variant="secondary"  onClick={handleCancelClick}>Avbryt</Button>
+            <Button
+              variant="success"
+              style={{ marginRight: "8px" }}
+              onClick={handleSaveClick}
+            >
+              Spara
+            </Button>
+            <Button variant="secondary" onClick={handleCancelClick}>
+              Avbryt
+            </Button>
           </div>
         ) : (
           <div>
