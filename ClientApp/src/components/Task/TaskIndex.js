@@ -32,7 +32,7 @@ function TaskIndex() {
           <tr>
             <th>Namn</th>
             <th>Beskrivning</th>
-            <th>Uppgiftstid </th>
+            <th>Projekttid </th>
             <th>Status</th>
             <th>Projektstart</th>
             <th>Projektslut</th>
