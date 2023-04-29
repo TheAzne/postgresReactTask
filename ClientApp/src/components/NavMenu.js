@@ -49,7 +49,7 @@ export class NavMenu extends Component {
           light
         >
           <NavbarBrand tag={Link} to="/">
-            postgresReactTask
+            Task App
           </NavbarBrand>
           <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
           <Collapse
